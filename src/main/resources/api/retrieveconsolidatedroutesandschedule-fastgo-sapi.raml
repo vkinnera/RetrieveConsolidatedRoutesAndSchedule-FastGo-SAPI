@@ -1,0 +1,69 @@
+#%RAML 1.0
+title: RetrieveConsolidatedRoutesAndSchedule FastGo SAPI
+description: This RAML will fetch Route and Schdule From FastGo Transport Provider
+uses:
+  common: /libraries/common/common-bussiness-library.raml
+  routes: /libraries/routes/routes-bussiness-library.raml
+  schdule: /libraries/schdules/schdules-bussiness-library.raml
+/{transportType}:
+  /{transportCompany}:
+    /routes:
+      get:
+        is:
+          - common.transactionId
+        responses:
+          200:
+            body:
+              application/json:
+                type: routes.getRoutesResponse
+                example: !include /libraries/routes/examples/getRoutes-200Response-example.json
+          400:
+           body:
+            application/json:
+              type: common.commonError
+              example: !include /libraries/common/examples/400Response-example.json
+          404:
+           body:
+            application/json:
+              type: common.commonError 
+              example: !include /libraries/common/examples/404Response-example.json
+          500:
+           body:
+            application/json:
+              type: common.commonError    
+              example: !include /libraries/common/examples/500Response-example.json                   
+    /schedules:
+      get:
+        is:
+          - common.transactionId
+          - common.departureLocationCode
+          - common.destinationLocationCode
+        responses:
+          200:
+            body:
+              application/json:
+                type: schdule.getSchdulesResponse
+                example: !include /libraries/schdules/examples/getSchdules-200Response-example.json
+          400:
+           body:
+            application/json:
+              type: common.commonError
+              example: !include /libraries/common/examples/400Response-example.json
+          404:
+           body:
+            application/json:
+              type: common.commonError  
+              example: !include /libraries/common/examples/404Response-example.json
+          500:
+           body:
+            application/json:
+              type: common.commonError    
+              example: !include /libraries/common/examples/500Response-example.json             
+                        
+          
+              
+          
+                                                
+                        
+                    
+              
