@@ -14,8 +14,21 @@
         <error-handler ref="globalErrorHandlerError_Handler">
         </error-handler>
     </flow>
-	<sub-flow name="retrieveconsolidatedroutesandschedule-fastgo-sapiSub_Flow" doc:id="14f5155c-9f2e-4beb-bfd7-193a98202ebb" >
-		<ee:transform>
+    <flow name="retrieveconsolidatedroutesandschedule-fastgo-sapi-console">
+        <http:listener path="/console/*" config-ref="RetrieveConsolidatedRoutesAndSchedule-FastGo-SAPI-httpListenerConfig">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body><![CDATA[#[payload]]]></http:body>
+                <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:console config-ref="retrieveconsolidatedroutesandschedule-fastgo-sapi-config" />
+		<error-handler ref="globalErrorHandlerError_Handler" />
+    </flow>
+    <sub-flow name="retrieveconsolidatedroutesandschedule-fastgo-sapiSub_Flow" doc:id="c01ff924-faf3-486d-bde8-b3c0b8e6514a" >
+    <ee:transform>
             <ee:variables>
                 <ee:set-variable variableName="transportType"><![CDATA[attributes.uriParams.'transportType']]></ee:set-variable>
                 <ee:set-variable variableName="transportCompany"><![CDATA[attributes.uriParams.'transportCompany']]></ee:set-variable>
@@ -26,16 +39,18 @@ attributes.headers.transactionId]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
 	</sub-flow>
-	<flow name="get:\(transportType)\(transportCompany)\routes:RetrieveConsolidatedRoutesAndSchedule-TravelOnTip-SAPI-config" doc:id="20430127-9be9-49ba-84c7-556864de4327" >
-		<flow-ref doc:name="Copy_of_Flow Reference initialize Request Variable" doc:id="899bf884-06ee-47c4-a347-f8c5806f9637" name="retrieveconsolidatedroutesandschedule-fastgo-sapiSub_Flow" />
-		<logger level="INFO" doc:name="Copy_of_Logger" doc:id="68a2edc2-25c0-4701-8f7a-b9f05f2ccc27" message="Request Received for Routes FastGo SAPI for TransactionId: #[vars.transactionId]" />
-		<flow-ref doc:name="Copy_of_Flow Reference" doc:id="f03cd7ca-6947-4d91-bb70-3e8e200cde9f" name="fastGo-getRoutes-implementation_Sub_Flow" />
-		<logger level="INFO" doc:name="Copy_of_Logger" doc:id="b6545106-c0a5-469d-aabc-63fdd6962aa3" message="Response sent for fastGo SAPI for TransactionId: #[vars.transactionId]" />
-	</flow>
-	<flow name="get:\(transportType)\(transportCompany)\schdules:RetrieveConsolidatedRoutesAndSchedule-TravelOnTip-SAPI-config" doc:id="627e4f0a-1307-4cd5-ac27-0e8eb438fa65" >
-		<flow-ref doc:name="Copy_of_Flow Reference initialize Request Variable" doc:id="8e7c6183-ce61-4573-a758-1a6cd06b35ba" name="retrieveconsolidatedroutesandschedule-fastgo-sapiSub_Flow" />
-		<logger level="INFO" doc:name="Copy_of_Logger" doc:id="ca0a0526-774c-4b4b-9278-3e22d63e085e" message="Request Received for Schedules fastGo SAPI for TransactionId: #[vars.transactionId]" />
-		<flow-ref doc:name="Copy_of_Flow Reference" doc:id="da10cb63-f4b7-46a5-bf48-4088ef1c16de" name="fastGo-getSchedules-implementationSub_Flow" />
-		<logger level="INFO" doc:name="Copy_of_Logger" doc:id="00e27478-cd00-4270-9528-acdb9b1a450f" message="Response sent for Schedules fastGo SAPI for TransactionId: #[vars.transactionId]" />
-	</flow>
+	<flow name="get:\(transportType)\(transportCompany)\routes:retrieveconsolidatedroutesandschedule-fastgo-sapi-config">
+        <flow-ref doc:name="Flow Reference initialize Request Variable" doc:id="5d39b99b-c52a-4f4e-8e60-2a7b50da99a4" name="retrieveconsolidatedroutesandschedule-fastgo-sapiSub_Flow"/>
+		<logger level="INFO" doc:name="Logger" doc:id="ebd2f681-2cc9-40f0-a1fd-1e93aa84e8f8" message="Request Received for Routes fastGo SAPI for TransactionId: #[vars.transactionId]"/>
+		<flow-ref doc:name="Flow Reference" doc:id="358c6760-3ecb-49da-91d5-dd807952a069" name="fastGo-getRoutes-implementation_Sub_Flow"/>
+		<logger level="INFO" doc:name="Logger" doc:id="08ec2b9d-0a2a-4633-8e93-1779e2f24063" message="Response sent for fastGo SAPI for TransactionId: #[vars.transactionId]"/>
+		<error-handler ref="globalErrorHandlerError_Handler" />
+    </flow>
+    <flow name="get:\(transportType)\(transportCompany)\schedules:retrieveconsolidatedroutesandschedule-fastgo-sapi-config">
+        <flow-ref doc:name="Flow Reference initialize Request Variable" doc:id="11a2a223-5934-40ef-9683-f9ef7e65ef17" name="retrieveconsolidatedroutesandschedule-fastgo-sapiSub_Flow"/>
+		<logger level="INFO" doc:name="Logger" doc:id="037aa72b-c6a3-4fa8-b9ee-a1d7cf8d3856" message="Request Received for Schedules fastGo SAPI for TransactionId: #[vars.transactionId]"/>
+		<flow-ref doc:name="Flow Reference" doc:id="ea9ccdd3-9be5-4459-ac77-39d5e70b516d" name="fastGo-getSchedules-implementationSub_Flow"/>
+		<logger level="INFO" doc:name="Logger" doc:id="e2dc39ca-49d1-4442-b3a8-9c8027d2bfa7" message="Response sent for fastGo SAPI for TransactionId: #[vars.transactionId]"/>
+		<error-handler ref="globalErrorHandlerError_Handler" />
+    </flow>
 </mule>

@@ -5,6 +5,6 @@ http:
   requester:
     host: "0.0.0.0"
     port: "9082"
-    routesPath: "fastGoCall/routes"
-    schedulesPath: "fastGoCall/schedules"
+    routesPath: "/fastGoCall/routes"
+    schedulesPath: "/fastGoCall/schedules"
 
