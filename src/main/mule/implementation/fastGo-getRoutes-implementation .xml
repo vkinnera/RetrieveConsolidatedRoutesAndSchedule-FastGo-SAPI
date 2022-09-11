@@ -5,9 +5,6 @@
 	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
 http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
-	<http:request-config name="HTTP_Request_configuration-FastGo" doc:name="HTTP Request configuration" doc:id="ddda0342-61ab-49e4-a9da-169d3b124167" >
-		<http:request-connection host="${http.requester.host}" port="${http.requester.port}" />
-	</http:request-config>
 	<sub-flow name="fastGo-getRoutes-implementation_Sub_Flow" doc:id="29c4e3da-82a5-4ff6-8c30-44df2335ca9d" >
 		<http:request method="GET" doc:name="Request" doc:id="4405458d-b373-4448-9312-bae189c2bb69" config-ref="HTTP_Request_configuration-FastGo" path="${http.requester.routesPath}">
 			<http:headers ><![CDATA[#[output application/java

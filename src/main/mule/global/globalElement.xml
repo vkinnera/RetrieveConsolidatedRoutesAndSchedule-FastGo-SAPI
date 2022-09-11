@@ -11,6 +11,9 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	<http:listener-config name="RetrieveConsolidatedRoutesAndSchedule-FastGo-SAPI-httpListenerConfig">
         <http:listener-connection host="${http.listener.host}" port="${http.listener.port}" />
     </http:listener-config>
+    <http:request-config name="HTTP_Request_configuration-FastGo" doc:name="HTTP Request configuration" doc:id="bf60cb92-d3e3-4283-a664-ad6a74e8e9e9" >
+		<http:request-connection host="${http.requester.host}" port="${http.requester.port}" />
+	</http:request-config>
 	<configuration-properties doc:name="Configuration properties" doc:id="6565cac0-439b-454e-97e1-c3a9a9f7db66" file="config\local.yaml" />
 	<configuration doc:name="Configuration" doc:id="cb21046a-6a7c-49d8-83af-304703f289f0" defaultErrorHandler-ref="globalErrorHandlerError_Handler" />
 	
